@@ -45,6 +45,11 @@ public class Fireball implements Attack {
     }
 
     @Override
+    public String description() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "Fireball";
     }

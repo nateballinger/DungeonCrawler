@@ -21,15 +21,15 @@ public class FocusedStrike implements Attack {
         for (Dice dice : attackDice) {
             damageRoll += dice.roll();
         }
-        if (attackRoll == 20) {
+        if (attackRoll > 18) {
             System.out.println("CRITICAL HIT!!");
-            int damage = (2 * damageRoll) + attackPower;
+            int damage = (3 * damageRoll) + attackPower;
             target.setCurrentHealth(targetHealth - damage);
             System.out.println(target.getName() + " takes " + damage + " points of damage!");
         }
-        else if (attackRoll > target.getArmor()) {
+        else if (attackRoll > target.getArmor() + 1) {
             System.out.println("HIT!!");
-            int damage = damageRoll + attackPower;
+            int damage = damageRoll + attackPower/2;
             target.setCurrentHealth(targetHealth - damage);
             System.out.println(target.getName() + " takes " + damage + " points of damage!");
 
@@ -42,6 +42,12 @@ public class FocusedStrike implements Attack {
             target.setCurrentHealth(0);
         }
         target.getStatus();
+    }
+
+    @Override
+    public String description() {
+        return "Increased chance for critical hits and critical hit damage. \n " +
+                "Less damage on non-critical hits and greater chance of missing.";
     }
 
     @Override

@@ -35,8 +35,9 @@ public class UserInput {
     public static String getContinueChoice() {
         System.out.println("What would you like to do next?");
         System.out.println("[K]ick down the next door.");
-        System.out.println("Use an [I]tem");
+        System.out.println("Use an [I]tem.");
         System.out.println("Take a short [R]est.");
+        System.out.println("Get [A]ttack information.");
         System.out.println("**WARNING: You may be ambushed during short rests.");
 
         String choice = "";
@@ -47,6 +48,8 @@ public class UserInput {
             choice = "item";
         } else if (input.equalsIgnoreCase("r")) {
             choice = "rest";
+        } else if (input.equalsIgnoreCase("a")) {
+            choice = "attack";
         } else {
             System.out.println("**Invalid choice**");
             System.out.println();
@@ -79,21 +82,22 @@ public class UserInput {
         return choice;
     }
 
-    public static int getAttackChoice(String attack1, String attack2) {
+    public static int getAttackChoice(String standard, String attack1, String attack2) {
         int choice;
         while(true) {
             System.out.println("Pick an attack:");
-            System.out.println("[1] " + attack1);
-            System.out.println("[2] " + attack2);
+            System.out.println("[1] " + standard);
+            System.out.println("[2] " + attack1);
+            System.out.println("[3] " + attack2);
             try {
                 choice = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("**Invalid choice**");
-                choice = getAttackChoice(attack1,attack2);
+                choice = getAttackChoice(standard, attack1, attack2);
             }
-            if (choice != 1 && choice != 2) {
-                choice = getAttackChoice(attack1, attack2);
+            if (choice != 1 && choice != 2 && choice != 3) {
+                choice = getAttackChoice(standard, attack1, attack2);
             }
         }
         return choice;

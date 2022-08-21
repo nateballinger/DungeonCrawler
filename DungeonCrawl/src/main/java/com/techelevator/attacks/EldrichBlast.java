@@ -23,13 +23,13 @@ public class EldrichBlast implements Attack {
         }
         if (attackRoll == 20) {
             System.out.println("CRITICAL HIT!!");
-            int damage = (2 * damageRoll) + attackPower;
+            int damage = (2 * damageRoll) + attackPower/3;
             target.setCurrentHealth(targetHealth - damage);
             System.out.println(target.getName() + " takes " + damage + " points of damage!");
         }
-        else if (attackRoll > target.getArmor()) {
+        else if (attackRoll > target.getArmor() - 2) {
             System.out.println("HIT!!");
-            int damage = damageRoll + attackPower;
+            int damage = damageRoll + attackPower/3;
             target.setCurrentHealth(targetHealth - damage);
             System.out.println(target.getName() + " takes " + damage + " points of damage!");
 
@@ -42,6 +42,11 @@ public class EldrichBlast implements Attack {
             target.setCurrentHealth(0);
         }
         target.getStatus();
+    }
+
+    @Override
+    public String description() {
+        return "Greater chance to hit, but does less damage.";
     }
 
     @Override

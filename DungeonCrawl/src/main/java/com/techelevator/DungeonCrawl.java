@@ -17,8 +17,6 @@ public class DungeonCrawl {
 
     public static void main(String[] args) {
 
-        Scanner scanner = new Scanner(System.in);
-
         UserOutput.printGameTitle();
 
         int heroChoiceNumber = UserInput.getHeroChoice();
@@ -72,7 +70,7 @@ public class DungeonCrawl {
 
                         if (choice.equals("potion")) {
                             hero.getHeroBag().useItem(potion, hero);
-                            scanner.nextLine();
+                            UserInput.hitReturn();
                         }
                         //use item stuff
                     }
@@ -90,14 +88,19 @@ public class DungeonCrawl {
                                 System.out.println("You recovered " + healRoll + " points of health.");
                                 hero.setCurrentHealth(hero.getCurrentHealth() + healRoll);
                             }
-                            scanner.nextLine();
+                            UserInput.hitReturn();
                             System.out.println("You enter the next room of the dungeon.");
                         } else {
                             System.out.println("AMBUSH!!");
                             isAmbush = true;
                         }
-                        scanner.nextLine();
+                        UserInput.hitReturn();
                         break;
+                    }
+
+                    if (continueChoice.equals("attack")) {
+                        UserOutput.printAttackDetails(hero);
+                        UserInput.hitReturn();
                     }
                 }
 

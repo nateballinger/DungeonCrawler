@@ -45,6 +45,11 @@ public class Bite implements Attack {
     }
 
     @Override
+    public String description() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         return "Bite";
     }

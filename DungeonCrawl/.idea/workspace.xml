@@ -63,6 +63,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in DungeonCrawl" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="DungeonCrawl" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PotionTest.potions_do_not_heal_more_than_max_health" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DungeonCrawl" />
       <extension name="coverage">
@@ -114,6 +122,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.DungeonCrawl" />
+        <item itemvalue="JUnit.All in DungeonCrawl" />
         <item itemvalue="JUnit.PotionTest.potions_heal_amount_declared" />
         <item itemvalue="JUnit.PotionTest.potions_do_not_heal_more_than_max_health" />
         <item itemvalue="JUnit.PotionTest.potions_heal_8_to_15_points_of_health" />

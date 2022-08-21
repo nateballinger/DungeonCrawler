@@ -19,7 +19,7 @@ public class Firebolt implements Attack {
         int attackRoll = d20.roll();
         int damageRoll = 0;
         for (Dice dice : attackDice) {
-            damageRoll += dice.roll();
+            damageRoll += 2 * dice.roll();
         }
         if (attackRoll == 20) {
             System.out.println("CRITICAL HIT!!");
@@ -27,7 +27,7 @@ public class Firebolt implements Attack {
             target.setCurrentHealth(targetHealth - damage);
             System.out.println(target.getName() + " takes " + damage + " points of damage!");
         }
-        else if (attackRoll > target.getArmor()) {
+        else if (attackRoll > target.getArmor() + 4) {
             System.out.println("HIT!!");
             int damage = damageRoll + attackPower;
             target.setCurrentHealth(targetHealth - damage);
@@ -42,6 +42,11 @@ public class Firebolt implements Attack {
             target.setCurrentHealth(0);
         }
         target.getStatus();
+    }
+
+    @Override
+    public String description() {
+        return "Does much more damage than the standard attack, but much more likely to miss.";
     }
 
     @Override

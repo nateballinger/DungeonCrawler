@@ -6,7 +6,7 @@ import com.techelevator.dice.Dice;
 
 import java.util.List;
 
-public class BarbarianBash implements Attack {
+public class StandardAttack implements Attack {
 
     @Override
     public void use(String attacker, Creature target, int attackPower, List<Dice> attackDice) {
@@ -14,12 +14,12 @@ public class BarbarianBash implements Attack {
         if (targetHealth == 0) {
             return;
         }
-        System.out.println(attacker + " uses Barbarian Bash!");
+        System.out.println(attacker + " attacks!");
         D20 d20 = new D20();
         int attackRoll = d20.roll();
         int damageRoll = 0;
         for (Dice dice : attackDice) {
-            damageRoll += dice.roll() * 2;
+            damageRoll += dice.roll();
         }
         if (attackRoll == 20) {
             System.out.println("CRITICAL HIT!!");
@@ -27,7 +27,7 @@ public class BarbarianBash implements Attack {
             target.setCurrentHealth(targetHealth - damage);
             System.out.println(target.getName() + " takes " + damage + " points of damage!");
         }
-        else if (attackRoll - 3 > target.getArmor()) {
+        else if (attackRoll > target.getArmor()) {
             System.out.println("HIT!!");
             int damage = damageRoll + attackPower;
             target.setCurrentHealth(targetHealth - damage);
@@ -46,11 +46,11 @@ public class BarbarianBash implements Attack {
 
     @Override
     public String description() {
-        return "Does increased damage, but more likely to miss.";
+        return "Basic attack with hero's weapon.";
     }
 
     @Override
     public String toString() {
-        return "Barbarian Bash";
+        return "Standard Attack";
     }
 }

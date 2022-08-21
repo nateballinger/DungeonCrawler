@@ -1,6 +1,8 @@
 package com.techelevator.ui;
 
+import com.techelevator.Creatures.heros.Hero;
 import com.techelevator.Creatures.monsters.Monster;
+import com.techelevator.attacks.StandardAttack;
 
 import java.util.Map;
 
@@ -32,6 +34,13 @@ public class UserOutput {
         for (Map.Entry<String,Monster> entry : monsterMap.entrySet()) {
             System.out.println(entry.getKey());
         }
+    }
+
+    public static void printAttackDetails(Hero hero) {
+        StandardAttack standardAttack = new StandardAttack();
+        System.out.println(standardAttack + ": " + standardAttack.description());
+        System.out.println(hero.getAttack1().toString() + ": " + hero.getAttack1().description());
+        System.out.println(hero.getAttack2().toString() + ": " + hero.getAttack2().description());
     }
 
     public static void printBattleChoices() {

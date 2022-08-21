@@ -2,6 +2,8 @@ package com.techelevator.Creatures.heros;
 
 import com.techelevator.Creatures.Attacker;
 import com.techelevator.Creatures.Creature;
+import com.techelevator.attacks.Attack;
+import com.techelevator.attacks.StandardAttack;
 import com.techelevator.dice.Dice;
 import com.techelevator.items.Inventory;
 import com.techelevator.Creatures.monsters.Monster;
@@ -14,6 +16,7 @@ public abstract class Hero extends Creature implements Attacker {
     private String heroClass;
     private Dice healthDice;
     private Inventory heroBag = new Inventory();
+    private Attack standardAttack = new StandardAttack();
 
     public void heroStatus() {
         System.out.println(getName() + ": Lvl "+ level + " " + heroClass);
@@ -28,19 +31,21 @@ public abstract class Hero extends Creature implements Attacker {
     }
 
     public void attack(Monster target) {
-        while(true) {
-            int choice = UserInput.getAttackChoice(getAttack1().toString(), getAttack2().toString());
-            if (choice == 1) {
-                attack1(target);
-                break;
-            } else if (choice == 2) {
-                attack2(target);
-                break;
-            } else {
-                System.out.println("**Invalid Choice**");
-            }
+        int choice = UserInput.getAttackChoice(standardAttack.toString(), getAttack1().toString(), getAttack2().toString());
+        if (choice == 1) {
+            standardAttack(target);
+        }
+        if (choice == 2) {
+            attack1(target);
+        }
+        if (choice == 3) {
+            attack2(target);
         }
 
+    }
+
+    public void standardAttack(Creature target) {
+        standardAttack.use(getName(), target, getAttackPower(), getAttackDice());
     }
 
     public void attack1(Creature target){
