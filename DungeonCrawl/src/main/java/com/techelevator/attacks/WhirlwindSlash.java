@@ -51,7 +51,7 @@ public class WhirlwindSlash implements Attack {
 
     @Override
     public String description() {
-        return "Make 3 quick slashes that do slightly less damage than normal.\n" +
+        return "Make 3 quick slashes that do slightly less damage than normal.\n " +
                 "Each slash has a chance to hit, critical hit, or miss.";
     }
 

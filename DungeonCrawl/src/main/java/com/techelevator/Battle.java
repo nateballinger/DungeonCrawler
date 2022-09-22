@@ -1,15 +1,13 @@
 package com.techelevator;
 
+import com.techelevator.Creatures.Trap;
+import com.techelevator.Creatures.monsters.*;
 import com.techelevator.dice.D20;
 import com.techelevator.dice.D6;
 import com.techelevator.Creatures.heros.Hero;
 import com.techelevator.Creatures.heros.LevelUp;
 import com.techelevator.items.Potion;
 import com.techelevator.items.SmokeBomb;
-import com.techelevator.Creatures.monsters.Imp;
-import com.techelevator.Creatures.monsters.Monster;
-import com.techelevator.Creatures.monsters.Rat;
-import com.techelevator.Creatures.monsters.Skeleton;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
@@ -26,14 +24,15 @@ public class Battle {
     }
 
     public boolean battle(Hero hero, Potion potion, SmokeBomb smokeBomb, boolean isAmbush) {
-        int numberOfMonsters = getNumberOfMonsters();
-        System.out.println();
+        if(!isAmbush) {
+            trapPhase(hero);
+        }
 
+        int numberOfMonsters = getNumberOfMonsters();
         Map<String, Monster> currentBattleMonsters = monsterMapMaker(numberOfMonsters);
         String[] currentMonsterArray = monsterArrayMaker(currentBattleMonsters);
-
         UserOutput.printMonsters(currentBattleMonsters);
-        scanner.nextLine();
+        UserInput.hitReturn();
 
         int experienceGained = 0;
         boolean isBattleOver = false;
@@ -41,22 +40,16 @@ public class Battle {
         while (!isBattleOver) {
             if (numberOfMonsters != 0) {
                 while (!isAmbush) {
-                    //UserOutput.printBattleChoices();
                     String battleChoice = UserInput.getBattleChoice();
                     if (battleChoice.equals("attack")) {
-                        //Prompt user to pick target, take input choice, use hero.attack on selected target.
-                        //UserOutput.printTargetChoices(currentMonsterArray);
                         String target = UserInput.getTarget(currentMonsterArray);
                         hero.attack(currentBattleMonsters.get(target));
                         scanner.nextLine();
                         break;
                     }
                     if (battleChoice.equals("item")) {
-                        //select item from inventory use item
                         hero.getHeroBag().showInventory(true);
-
                         String choice = UserInput.pickItem(hero.getHeroBag(), potion, smokeBomb);
-
                         if (choice.equals("potion")) {
                             hero.getHeroBag().useItem(potion, hero);
                             scanner.nextLine();
@@ -86,7 +79,6 @@ public class Battle {
                 }
             }
             isAmbush = false;
-
 
             //check if any monsters are alive, and if so continues the battle.  Otherwise sets isBattleOver to true.
             int totalEnemyRemainingHealth = 0;
@@ -121,7 +113,6 @@ public class Battle {
                 }
                 scanner.nextLine();
 
-
             }
 
             //Monsters all attack hero
@@ -143,9 +134,12 @@ public class Battle {
             }
         }
         return (hero.getCurrentHealth() == 0);
+    }
 
-
-
+    private void trapPhase(Hero hero) {
+        Trap trap = new Trap();
+        trap.attack(hero);
+        UserInput.hitReturn();
     }
 
     private int getNumberOfMonsters() {
@@ -166,6 +160,7 @@ public class Battle {
         } else {
             System.out.println(numberOfMonsters + " monsters appear!");
         }
+        System.out.println();
         return numberOfMonsters;
     }
 
@@ -198,9 +193,17 @@ public class Battle {
 
     private Monster getRandomMonster(int level) {
         List<Monster> monsterList = new ArrayList<>();
-        monsterList.add(new Rat(level));        //TODO: Consider making .csv files or database that hold monsters that are available at various levels.
-        monsterList.add(new Skeleton(level));
-        monsterList.add(new Imp(level));
+        if (level < 7) {
+            monsterList.add(new Rat(level));
+            monsterList.add(new Skeleton(level));
+            monsterList.add(new Imp(level));
+        }
+        if (level > 4 && level < 15) {
+            monsterList.add(new Zombie(level));
+            monsterList.add(new GiantSpider(level));
+            monsterList.add(new Wraith(level));
+        }
+
 
         D20 d20 = new D20();
         int monsterRoll = d20.roll() % (monsterList.size());

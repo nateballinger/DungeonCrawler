@@ -1,5 +1,7 @@
 package com.techelevator.ui;
 
+import com.techelevator.Creatures.heros.Hero;
+import com.techelevator.Creatures.heros.LevelUp;
 import com.techelevator.items.Inventory;
 import com.techelevator.items.Potion;
 import com.techelevator.items.SmokeBomb;
@@ -30,6 +32,21 @@ public class UserInput {
     public static String getHeroName(){
         System.out.println("Enter a name for your hero.");
         return scanner.nextLine();
+    }
+
+    public static void modifyHero(Hero hero) {
+        System.out.println("Set your level");
+        int level = 1;
+        try{
+            level = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("not a number");
+        }
+        int exp = 0;
+        for(int i = 2; i <= level; i++) {
+            exp = 20 * i * i + -40 * i + 20 - hero.getExperience();
+            LevelUp.addExperience(hero,exp);
+        }
     }
 
     public static String getContinueChoice() {
@@ -144,5 +161,22 @@ public class UserInput {
 
     public static void hitReturn() {
         scanner.nextLine();
+    }
+
+    public static int gameOver() {
+        System.out.println("GAME OVER");
+        System.out.println();
+        System.out.println("Play again? Y/N");
+        String choice = "";
+        while (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")) {
+            choice = scanner.nextLine();
+            if (!choice.equalsIgnoreCase("y") && !choice.equalsIgnoreCase("n")) {
+                System.out.println("Please make a valid choice. Y/N");
+            }
+        }
+        if (choice.equalsIgnoreCase("y")) {
+            return 1;
+        }
+        return 0;
     }
 }

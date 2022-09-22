@@ -1,29 +1,28 @@
 package com.techelevator.Creatures.monsters;
 
 import com.techelevator.Creatures.Attacker;
-import com.techelevator.Creatures.Creature;
 import com.techelevator.attacks.Bite;
-import com.techelevator.attacks.Lunge;
-import com.techelevator.dice.D2;
+import com.techelevator.attacks.Scratch;
+import com.techelevator.dice.D4;
 import com.techelevator.dice.Dice;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rat extends Monster implements Attacker {
+public class Zombie extends Monster implements Attacker {
 
-    public Rat(int level) {
-        setArmor(5 + (level/2) * 1);
-        setAttackPower(1 + (level/2) * 1);
-        setCurrentHealth(8 + level * 2);
+    public Zombie(int level) {
+        setArmor(8 + (level/2) * 1);
+        setAttackPower(3 + (level/2) * 1);
+        setCurrentHealth(3 + (int)(level * 1.5));
         setMaxHealth(getCurrentHealth());
-        setName("Rat");
         List<Dice> attackDice = new ArrayList<>();
-        attackDice.add(new D2());
+        attackDice.add(new D4());
         setAttackDice(attackDice);
-        setExperience(10 + (level - 1) * 5);
+        setName("Zombie");
+        setExperience(15 + (level - 1) * 5);
         setAttack1(new Bite());
-        setAttack2(new Lunge());
+        setAttack2(new Scratch());
     }
 
 //    @Override

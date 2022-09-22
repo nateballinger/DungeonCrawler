@@ -52,7 +52,7 @@ public class ArrowBarrage implements Attack {
 
     @Override
     public String description() {
-        return "Shoot three arrows simultaneously at a single target.  \n" +
+        return "Shoot three arrows simultaneously at a single target.  \n " +
                 "Each arrow has a chance to hit, critical hit, or miss.";
     }
 

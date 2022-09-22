@@ -11,12 +11,14 @@ import com.techelevator.items.SmokeBomb;
 import com.techelevator.ui.UserInput;
 import com.techelevator.ui.UserOutput;
 
-import java.util.Scanner;
 
 public class DungeonCrawl {
 
     public static void main(String[] args) {
+        run();
+    }
 
+    public static void run() {
         UserOutput.printGameTitle();
 
         int heroChoiceNumber = UserInput.getHeroChoice();
@@ -41,6 +43,11 @@ public class DungeonCrawl {
 
         hero.getHeroBag().addItem(potion, 2);
         hero.getHeroBag().addItem(smokeBomb, 0);
+
+        if (hero.getName().equals("tester123")) {
+            UserInput.modifyHero(hero);
+        }
+
         hero.heroStatus();
 
         UserOutput.printAdventureBegins();
@@ -103,37 +110,10 @@ public class DungeonCrawl {
                         UserInput.hitReturn();
                     }
                 }
-
             }
-
-
         }
-
-        /*
-        scanner.nextLine();
-        System.out.println("Prepare for battle!!");
-        scanner.nextLine();
-
-        System.out.println("A rat appears!");
-        Rat rat = new Rat(hero.getLevel());
-        while (rat.getHealth() > 0) {
-            System.out.println("Hit \"Enter\" to attack");
-            scanner.nextLine();
-            hero.attack(rat);
-            scanner.nextLine();
-            if (rat.getHealth() == 0) {
-                break;
-            }
-            System.out.println("The rat attacks!");
-            scanner.nextLine();
-            rat.attack(hero);
-            scanner.nextLine();
+        if(UserInput.gameOver() == 1) {
+            run();
         }
-        System.out.println();
-        System.out.println("The rat has been defeated!");
-
-         */
-
-
     }
 }
